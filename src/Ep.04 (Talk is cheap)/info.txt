@@ -1,0 +1,343 @@
+Lets start with the project based learning.
+
+STEP:1-->We are building a swiggy clone app for that
+we makes all the thing using component.
+
+STEP:2-->Create a component of name Header we are not accesing the like css <img src="./img/Logo.png ";
+
+For accesing the image we are doing like that --->
+import it below the react---like that-->
+import logoImage from './Img/Logo.png';
+then we are accesing it in any component by {logoImage}...
+
+
+
+STEP:3-->Create AppLayout Component for the in which all the component will be injected. 
+
+STEP:4-->Now lets create a body component we have a search bar,Resturant name.
+
+STEP:5--> Create a Resturant card that we are using it all the time(the component are reusable ).
+
+**IMPORTANT--->Try to create component before accesing in the other component if you are not doing this thing then it will give error(can't access before initialize).
+
+
+STEP:6--> How to write inline style here?
+here the style are given to like the javascript object.
+
+const styleCard{
+  backgroundColor:"#f0f0f0";
+}
+
+try to access it by the style={styleCard}
+
+the beauty of jsx it that we are writing the inline css inside the javascript .
+
+
+inline style is not prefered way to write the css code.
+
+
+instead of writing like this we are just put the object in the style like this -->
+ 
+ style = {{backgroundColor:#f0f0f0",}}
+
+ the first bracket is telling that the some piece of javascript code inside it
+ and the second bracket defines the there is some javascript object.
+
+
+
+
+ STEP:7--->Suppose the first card is barbeque nation then how to re-use  the card component for the kfc how we can do that?
+ here the concept of props come.
+
+
+
+ Q.1--> What is "props"?
+ "props" is the the short-form for  the properties 
+
+ so "props" is just normal argument to the function.
+
+ In React, "props" is a special keyword that stands for "properties." Props are a way to pass data from a parent component to a child component in React.
+
+ here body component act as the parent component and the ResturantCard act as the child component.
+
+resName = "Food Yard"
+cuisine = "Mughlai, Beverages, Chinese"
+these are the props and it is pass as like the object.
+
+and the props are the access by {props.resName} in the curly braces. 
+
+
+const Body = () =>{
+    return (
+        <div className="body">
+            <div className="search">Search</div>
+                <div className="rest-container">
+                    <ResturantCard
+                    resName = "Barbeque Nation"
+                    cuisine = "Biryani, North Indian, Asian"
+                    />   
+                    <ResturantCard
+                    resName = "Banarasi Food"
+                    cuisine = "Thalis, South Indian, Snacks..."
+                    /> 
+                    <ResturantCard
+                    resName = "Food Yard"
+                    cuisine = "Mughlai, Beverages, Chinese"
+                    /> 
+                    <ResturantCard
+                    resName = "The Flavours"
+                    cuisine = "North Indian, Fast Food, Chinese, Grill"
+                    /> 
+                    <ResturantCard/> 
+                    <ResturantCard/>
+                    <ResturantCard/> 
+                    <ResturantCard/>
+                    <ResturantCard/>
+                    <ResturantCard/>
+                    <ResturantCard/>
+                    <ResturantCard/>
+                    <ResturantCard/>
+                    <ResturantCard/>
+                </div>
+            
+        </div>
+    )
+};
+
+
+
+
+const ResturantCard = (props) =>{
+    return (
+        <div className="rest-container">
+         <div className="rest-cards" style={styleCard}>
+            <img className="barbeque-logo" alt="berbeque-logo" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_264,h_288,c_fill/b8k7atmcffdkwzdwy8nt"/>
+            <h3>{props.resName}</h3>
+            <h5>{props.cuisine}</h5>
+            <h5>4.4 stars</h5>
+            <h5>38 minutes</h5>
+          </div>
+        </div>
+    );
+};
+
+
+React will take all this properties as  (props) and wrap inside the object and will pass here as a props and this props will be object now so now suppose i want to use this name and cuisine over here and make the card dynamic by i can read the props by as it is object and the object is read by {}.
+
+
+
+***when i have to pass some dynamically data to the Component you pass as an props.
+
+some cool developer are also pass the props as ({resName, cuisine})
+the distructuring on the fly.
+like this--->
+const ResturantCard = ({resName, cuisine}) =>{
+    return (
+        <div className="rest-container">
+         <div className="rest-cards" style={styleCard}>
+            <img className="barbeque-logo" alt="berbeque-logo" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_264,h_288,c_fill/b8k7atmcffdkwzdwy8nt"/>
+            <h3>{resName}</h3>
+            <h5>{cuisine}</h5>
+            <h5>4.4 stars</h5>
+            <h5>38 minutes</h5>
+          </div>
+        </div>
+    );
+};
+
+this is also correct..this distructuring is not something in react this is javascript.
+
+
+
+******Now the Scene of API Comes********
+
+Q1.-->What is API?
+API stands for Application Programming Interface. An API is a set of rules, protocols, and tools that allows different software applications to communicate with each other. It defines the methods and data formats that applications can use to request and exchange information.
+
+
+Q.2-->What is Config Driven UI?
+Controlling UI How the UI look like using the data an the using the config and the config comes from backened.
+A config-driven UI, short for configuration-driven user interface, is an approach to building user interfaces (UIs) where the layout, behavior, and appearance of UI components are determined by configuration data rather than hard-coded in the application code.
+lets ex-->suppose in swiggy website some image of offer is showing in varansi and in banglore another image of offer is showing due to the configdriven UI.
+
+
+
+
+STEP:8--->Now make a object name resList in which the api is to be pasted
+
+STEP:9--->Now you have to pass the data from parent component to child Component
+like this 
+
+
+make a resData in the ResturantCard in the body in which resData={resObj}
+--->resData={resList} this line explains that----:
+--->resList: This likely refers to an object representing the data obtained from the Swiggy API for a particular restaurant card.
+--->{}: These curly braces indicate an object literal notation in JavaScript. In this context, it's used to create a new object.
+--->resData = {resList}: This line is assigning the object resObj to a new variable resData. The object resObj is being encapsulated within another object, which is then assigned to resData.
+--->resData becomes an object containing the data obtained from the Swiggy API for a restaurant card, stored within a property named resObj
+
+
+
+now in ResturantCard component const {resData}=props;
+
+now you have to the pass the props in the ResturantCard like this {resData.info.name}
+
+now the cuisines are in the array form so we have to join(", ") the cuisines when we are pass as the props in the ResturantCard.
+<h5>{resData.info.cuisines.join(", ")}</h5> like this.
+
+
+
+Q.3-->How to use dynamic image?
+src={
+        "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +resData.info.cloudinaryImageId
+    }
+https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/
+this is the cdn the image is comes from the cdn.
+
+
+
+--->now pass the whole api in the array form like this
+const resList =[
+    {
+
+    }
+]; like this there are lot more object in the array.
+now to access int he body we have to pass like this <ResturantCard resData={resList[0]} />
+
+
+
+
+
+
+
+******************************************************************************
+const ResturantCard = (props) => {
+  const { resData } = props;
+  return (
+    <div className="rest-container">
+      <div className="rest-cards" style={styleCard}>
+        <img
+          className="barbeque-logo"
+          alt="berbeque-logo"
+          src={
+            "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+            resData.info.cloudinaryImageId
+          }
+        />
+        <h3>{resData.info.name}</h3>
+        <h5>{resData.info.cuisines.join(", ")}</h5>
+        <h5>{resData.info.avgRating}</h5>
+        <h5>{resData.info.sla.deliveryTime} minutes</h5>
+        <h5>{resData.info.costForTwo}</h5>
+      </div>
+    </div>
+  );
+};
+
+the code is look so ugly to distructure this like this--->so we distructure on the fly
+
+like this--->
+
+const ResturantCard = (props) => {
+  const { resData } = props;
+
+//the change is only that is here
+  const {
+    cloudinaryImageId,
+    name,
+    cuisines,
+    avgRating,
+    costForTwo
+  } = resData?.info;
+
+
+  return (
+    <div className="rest-container">
+      <div className="rest-cards" style={styleCard}>
+        <img
+          className="barbeque-logo"
+          alt="berbeque-logo"
+          src={
+            "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
+            cloudinaryImageId
+          }
+        />
+        <h3>{name}</h3>
+        <h5>{cuisines.join(", ")}</h5>
+        <h5>{avgRating}</h5>
+        <h5>{resData.info.sla.deliveryTime} minutes</h5>
+        <h5>{costForTwo}</h5>
+      </div>
+    </div>
+  );
+};
+
+
+Q.4---> What is mean by ?.     ?
+In JavaScript, the ?. syntax is called the optional chaining operator. It allows you to safely access properties of an object without causing an error if the object or any intermediate property is null or undefined.
+
+resData?.info-->then what is mean by that?
+So, resData?.info means that you want to access the info property of the resData object if resData is not null or undefined. If resData is null or undefined, the expression will short-circuit and evaluate to undefined without throwing an error
+
+
+
+
+***********************************************************************
+Now we eleminate this code  <ResturantCard resData={resList[0]} />
+because it looks very much messy
+
+we replace by using map on the restaurant
+
+{
+    resList.map((restaurant) => (<ResturantCard resData={restaurant}/>))
+}
+
+Explaination:-->
+resList: This likely refers to an array containing data for multiple restaurants, retrieved from an API or some other data source.
+
+.map((restaurant) => ... ): This part of the code is using the map function to iterate over each element in the resList array. For each element (which represents data for a single restaurant), the provided arrow function is called.
+
+(restaurant) => ...: This is an arrow function that takes one parameter, restaurant, representing an individual restaurant object from the resList array.
+
+<RestaurantCard resData={restaurant}/>: Inside the arrow function, this line creates a new instance of a RestaurantCard component and passes the restaurant data as a prop called resData.
+
+
+
+
+**the warning is showing in the console is that:
+Each child in a list should have a unique "key" prop.
+it means that each of the list item or card item is uniquelly represented.
+
+Whenever we are iterating on the  map of resList then we have to a key for the every card and the key should be unique.
+
+for that we are passing key as well:
+{
+  resList.map((restaurant) => (
+    <ResturantCard key={restaurant.info.id} resData={restaurant}/>
+ ))
+}
+
+Q.5--->Why are we using key?
+the key are use to uniquelly identify each card.
+suppose one  card is added in the beginning then it clean all the card and it re-render all the card again because it does not know which is the new card is added. the react is treated all the card as same .but if i give each of them a unique id and the new resturant came to unique (idxyz) then the react know id1,id2,id3 are already there and the new card is came with the (idxyz) so it will just render one restaurant here.this is the huge optimization of writing the code.
+
+
+****
+{
+  resList.map((restaurant,index) => (
+    <ResturantCard key={index} resData={restaurant}/>
+ ))
+}
+never use index as the key if the unique id is not given then it is recommended to use index as the key.
+
+
+********************CHAPTER END**************************
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,120 @@
+***************************************************************************************
+Now come to the point is that in useEffect it takes callback function and the dependencies array .
+-->if the no dependency array in that useEffect is called on the every render.
+-->if the dependency array is empty  = [] => useEffect is called on initial render(just once).
+-->if the dependency array is [btnNameReact] => called everytime btnNameReact is updated
+
+
+**********never use useState outside of the component also in in the if else condotion and also try to keep on the top.
+
+
+
+Q.What is "Route"?
+In React, a "route" refers to a mechanism for defining different URLs (paths) within a web application and associating each URL with a specific component to render when that URL is visited.
+
+Q.How to install?
+npm i react-route-dom.
+
+Q.How to create routing configuration?
+for that import {createaBrowserRouter} from "react-router-dom" in the app.js.
+then it will create routing configuration for us. 
+
+now creating a routing configuration in appRouter.configuration means that information that defines on the specific route or path.
+
+the createaBrowserRouter takes a list of path in the array form.
+
+const appRouter = createBrowserRouter([
+  {
+    path:"/",
+    element:<AppLayout/>,
+  },
+  {
+    path:"/about",
+    element:<About/>,
+  },
+  {
+    path:"/contact",
+    
+  }
+]);
+
+
+
+just creating configuration will won't work.
+we have to pass this configuration to rendering on to the page for that i have one more component that i import from the react router dom is RouterProvider.
+
+import {createaBrowserRouter,RouterProvider} from "react-router-dom.
+
+that provides router configuration for the app.
+Now for rendering -->
+root.render(<RouterProvider router={appRouter}/>);
+
+
+*****Shortcut to create a component --->rafce
+
+react have own hook to through an error which is useRouteError that we have to import in the Error component.
+
+***************************************
+Now to create a children Routes inside our app.
+
+what if i want to keep my header intact and i just to change my page below the header suppose i am on the about page so that the about page is below the header and header should always be there for that i have to create a children of the appRouter.
+
+like this--->
+
+const appRouter = createBrowserRouter([
+  {
+    path:"/",
+    element:<AppLayout/>,
+    children:[
+      {
+        path:"/",
+        element:<Body/>,
+      },
+      {
+        path:"/about",
+        element:<About/>,
+      },
+      {
+        path:"/contact",
+        element:<Contact/>,
+      },
+    ],
+    errorElement:<Error/>,
+  },
+]);
+
+Now how can load in the AppLayout for that header is already there only the other children will be change there from path to that position for that we use again another react router dom name Outlet.that is outlet is a component.now whenever there is the change in the path this outlet will be filled with the children according to the path on what page we are.
+
+Now create a anchor tag that whenever i click then it goes to that page like the about page.but whenever we are using the anchor that then it refresh the whole page. which is not much good.
+
+so we are using the Link which comes from the react router dom.the diffrence between anchor tag and the link is that:-->
+<li><a href="/home">Home</a></li>
+<li><Link to="/home">Home</Link></li>
+
+it not reload our whole page.
+
+
+There are two types of Routing :-->
+1.Client side Routing
+2.Server-side Routing:-->you make a network call and the page like aboutus.html is coming from the server but now over here this is the client side routing because we are not making the network call while moving towards the page becoz all the components are already loaded into the app.i'm not fetching the new page.
+
+Dynamic routing:-->how to create different route for the different restaurant.
+
+{
+        path:"/restaurants/:resId",
+        element:<RestaurantMenu/>,
+},
+here in path :resId is the dynamic our routes will be unique whenever we have unique restaurant.
+we are not building the menu for every restaurant card we just create the one RestaurantMenu and in the route we are using the different resId for the diffrent restaurant menu.
+
+
+
+Q.What is useParams?
+The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. Child routes inherit all params from their parent routes.it is imported from the react router dom.
+
+
+<Link key={restaurant.info.id} to={"/restaurants/"+restaurant.info.id}><RestaurantCard  resData={restaurant}/></Link>
+
+
+
+

@@ -1,0 +1,23 @@
+there are many types of testing that developer can do:
+
+developer testing are :
+1.unit testing:one unit is tested at time like header
+
+2.Integration testing:when multiple components are envolved each other 
+like we are seaching in the search box and the components are comes from the render .
+
+3.End to end testing:as soon as the user land on the website  and it leaves the page.it requres different types of tools syprus ,selenium
+
+but as the developer we are consern about first two type of testing
+
+we use the react testing library:install it
+behind the scene react uses the jest now install it also babel need to install
+configure babel.
+
+Now parcel have already babel into it so then can interfare with the jest configuration.
+for that we have to make changes in the app.we have to disable the parcel babel configuration 
+
+now npm run test:if any of the test cases is written
+
+npx jest --init
+

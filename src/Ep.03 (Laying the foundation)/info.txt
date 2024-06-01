@@ -1,0 +1,296 @@
+STEP:1-->To make a life easier we create a script instead of writing this command again and again so that the again and again the use of this command is diminished(npx parcel index.html).
+
+
+STEP:2-->we use npm script for that. Now how to create script?
+we create a script in package.json-->
+
+"scripts": {
+    "test": "jest"
+  },
+
+ above is already exist now we make a changes 
+ 1."start":"parcel index.html",---> it will run the project in development mode.
+ 2."build":"parcel build index.html",---> this script is for building it for production.
+
+ So by this we are no more to write the command of (npx parcel index.html).
+ then what we are write now to run this how?
+ for that we write a command:npm run start--> it will do the same thing as the (npx parcel index.html) doing.
+
+ if i have to build my project then command is:npm run build.
+
+
+ Q.1-->What is the difference between (npm run start) and (npm run build) ?
+ In summary, npm run start is used for local development, providing a convenient way to run your application with features like live reloading, while npm run build is used to generate a production-ready build of the application, optimized for performance and suitable for deployment to a web server.
+
+ instead of npm run start we can use shorcut like npm start🚀.
+
+
+
+
+ STEP:3-->Now Revising the basic concept
+🤨 what the React.createElement do?
+its creates an object and when we render this Element on the DOM then it will become Html Element😯.
+
+
+STEP:4-->
+const heading = React.createElement("h1",{
+    id:"heading"
+},"Hello world");
+This is not a good way to to create element.
+React developer  realised that this is not a good way to create browser element.
+because if we are creating the h1 tage or etc and span tag this will not work.
+**to help developer community facebook community created a jsx.
+
+ 
+Q.2-->What is jsx?
+JSX, or JavaScript XML, is a syntax extension for JavaScript that allows developers to write HTML-like code within JavaScript. It is commonly used in React.js for defining the structure of user interface components.
+
+we can also make application using react only but the jsx make life easy to understand code and reusable code.
+
+
+Q.3-->is it a valid javascript-->const jsxHeading = <h1 id="heading">Namaste React using jsx🚀</h1>;?
+It is not a valid javascript as per say.
+this is not a pure javascript javascript does not comes with jsx build inside it.
+javascript is that if the js engine understand that code but here the js engine does not understand it.
+
+Q.4-->js engine understand ECMA Script language.if the js engine does not understand this code then how it is working?
+Parcel doing the job behind the scene.
+The JSX Code is transpiled before it reaches to js engine.
+Transpiled Means-->The code is converted to the code such that browser can understand / React can understand.
+
+Q.5-->Now who is Transpiled this code?
+Parcel transpiled the code (it is not doing itself it is manager).
+it gives the resposibilty of transpilation to the package known as Babel(also a javascript compiler).
+
+Q.6-->How JSX works.?
+The JSX code is transpiled  to React.createElement behind the Scene.
+JSX =>babel transpiles to React.createElement => ReactElement-JS object => HTMLElement(render).
+
+
+STEP:5-->In the html the class is given to the element but in the jsx className is given and behind the scene the className is converted to class.
+** Attribute is always written in the camel case form.
+If the JSX is written in the single line then there is no need of the bracket and if it is written in multiple line then () these bracket is necessary so the the babel can understand that where the code starting and where is ending.
+
+
+
+STEP:6-->
+// React Element
+const heading = (
+   <h1 className="head">
+    Namaste React using jsx🚀
+    </h1>
+ )
+ This is the react Element which contains the objects.
+
+
+
+
+
+ Q.7--->What is the components in react?
+ Everythings is the components in react yes it is true ex-->button,header, cards etc.
+
+ Best defination:In React, components are the building blocks of user interfaces.They are reusable pieces of code that encapsulate a part of the UI's functionality and behavior. Components can be thought of as custom HTML elements that you can create and reuse throughout your application.   
+
+
+ there are two type of components:
+ 1.class based component-->OLD
+ 2.Functional based Component-->NEW
+
+
+
+
+
+Q.8-->What is React Functional components.
+it is just a normal javascript function.
+whenever you are created a functional component or any react component then it should be start with the capital letter.
+
+a function Component is normal javascript function(or arrow function is also you can say) which return some piece of jsx code(also say react element).
+
+//React Functional Components
+const HeadingComponent = () =>{
+    return <h1>Namaste React functional component.</h1>;
+};  
+
+what is the react element?
+the jsx is the react element.
+
+a function which return some piece of jsx is a functional component.
+
+***const fn = () => true;
+
+const fn2 = () =>{
+    return true;
+}*** these two functions are doing the same thing.
+
+
+
+***const HeadingComponent = () =>{
+    return <h1>Namaste React functional component.</h1>;
+}; 
+
+
+const HeadingComponent2 = ()=>(
+    <h1>Namaste React functional component.</h1>;
+);*** 
+
+these two functions are doing the same thing but the only diffrence is that in above code return is available but in the second no return is there and only braces is used.
+
+
+When the react element is used as a arrow function and its name is starting with Capital letter then it will become react component.
+
+
+
+*Now we can also nest the code of the jsx code.
+const HeadingComponent = () =>(
+    <div id="container">
+        <h1>Namaste React functional component.</h1>
+    </div>
+);
+
+
+
+
+Q.9-->then how i render the React functional component?
+root.render(<HeadingComponent/>);//render react component.
+
+<HeadingComponent/>  ---> this explain the this is the react Component.
+
+
+
+
+STEP:7--->
+Now create a new component name is Title:
+const Title = () =>(
+    <h1 className="head">
+     Namaste React using jsx🚀
+     </h1>
+  );
+
+
+
+  Suppose if i have to render the Title component inside the container of the HeadingComponent component   then it is very easy by this <Title/>.
+
+  //render the Title component into the container of HeadingComponent 
+const HeadingComponent = () =>(
+    <div id="container">
+        <Title/>.
+        <h1>Namaste React functional component.</h1>
+    </div>
+    
+);
+
+then what happened All the code of title component will come here and placed there like this
+
+const HeadingComponent = () =>(
+    <div id="container">
+        <h1 className="head">
+           Namaste React using jsx🚀
+        </h1>
+        <h1>Namaste React functional component.</h1>
+    </div>
+    
+);this is also known as the component composition.
+
+
+Who is doing do you remember?
+yes ,babel is reading this and doing the job itself.
+browser or the html does not know that we have the title component or the HeadingComponent babel is all transpiling everything in react code and react is rendering the main what browser understand.
+browser does not care about what component there. what component nested between different component.
+this root.render is converting everything to the html and the browser is rendering it.
+
+
+
+Q.10--->Why we are using arrow function can we use the normal function?
+Yes, we can use the normal function as the component also but we have to return it(normal return is not used).
+
+const Title = function(){
+    return (
+    <h1 className="head">
+     Namaste React using jsx🚀
+     </h1>
+  );
+}; but we are using the arrow function.
+
+
+
+
+
+
+
+If you are write any curly braces inside jsx {}.inside the curly braces you can run any piece of javascript expression or code you can write any code inside the curly parenthesis.
+
+
+const number = 1000; 
+const HeadingComponent = () =>(
+    <div id="container">
+        {number}      //here is the curly braces is used.
+        it can also write inside h2 tag this mean that you can inject any javascript code inside jsx.
+        <h1>Namaste React functional component.</h1>
+    </div>
+    
+);
+
+
+
+
+Q.11-->What if i have to put a element inside a component 
+
+
+//element
+Ex-->const title = (
+    <h1 className="head">
+     Namaste React using jsx🚀
+     </h1>
+)
+ 
+
+const HeadingComponent = () =>(
+    <div id="container">
+        {title}      //this is how you put react element inside the component.
+        <h1>Namaste React functional component.</h1>
+    </div>
+    
+); 
+
+
+Q.12-->What if i have to put a component inside the react element?
+
+
+const elem = <span>React Element</span>;
+
+const HeadingComponent = () =>(
+    <div id="container">
+        <h1 className="heading">Namaste React functional component.</h1>
+    </div>   
+); 
+
+
+
+const title = (
+    <h1 className="head">
+    {elem}
+    Namaste react uding jsx
+    <HeadingComponent/> //here is the component is injected inside the react element.
+    </h1>
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(title);
+
+
+
+
+
+STEP:8--->Suppose the data is comming from the Api.
+const data = api.getData();
+{data}
+what if the api send the mallicious data?
+over here the javascript is running the piece of code.
+if i am using the app pr website and the api sends the mallicious data then that data will be run in our browser suppose i get control to any javascript in your laptop.this kind of attach is croos-side scripting then attacher can read cookies ,read data, and lots of things .
+but the jsx is so amazing it takes care of this injection attach.
+
+
+we can also inject component inside component like this--->
+1.<Title></Title>
+2.<Title/>
+3.{Title()}--->Call a function component

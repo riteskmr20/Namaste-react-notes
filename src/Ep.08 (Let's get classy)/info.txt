@@ -1,0 +1,22 @@
+ Now in this chapter we will learn class based component.
+
+ we are building the about section to learn class based components.
+ ..a functional component is the normal javascrip function.-->it is a function which retuen some piece of jsx
+ ..and the class component is the normal javascript class.--> it is a class which have a render method  which return some piece of jsx. 
+
+ import React from "react";
+
+class UserClass extends React.Component{
+
+    render(){
+        return(
+          <div className="user-card">
+          <h2>Name:Ritesh</h2>
+          <h3>Location:Varanasi</h3>
+          <h4>Contact:riteshkmr2002@gmail.com</h4>
+        </div>
+        );
+    }
+    
+}
+export default UserClass;  

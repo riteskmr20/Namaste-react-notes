@@ -1,0 +1,211 @@
+Q.1--->What is the Monolithic Architecture?
+
+A monolithic architecture is a traditional software architecture in which all components of an application are tightly coupled and interconnected into a single, indivisible unit. In a monolithic architecture, the entire application, including its user interface, business logic, and data access layers, is built and deployed as a single, self-contained unit.
+
+
+Q.2 What is Microservices Architecture?
+
+Microservices architecture is a software development approach where an application is composed of small, independent services that are organized around specific business capabilities. Each microservice is self-contained, operates as a separate process, and communicates with other services through well-defined APIs (Application Programming Interfaces).
+
+
+
+Q.3--->What are the port Number?
+In computer networking, a port number is a 16-bit unsigned integer that identifies a specific process or service running on a device within a network. Ports are used to enable communication between different applications or services over a network, such as the internet or a local area network (LAN).
+
+
+The two approach of make api call:
+
+1.->
+LOADS-->API-->RENDER.
+
+2.-->
+LOADS-->RENDER-->API-->RE-RENDER.  
+
+In react we are using the second approach-->
+because this is is the better approach It gives the better UX.how?
+because the something skeleton is visible then api fetch then re-render then the all stuff is are re-render.
+
+
+
+**************Now the useEffect seen is comes**************
+
+useEffect is call like a function and it takes two arguments. 
+the first argument is arrow function and second is array of dependencies.
+
+In React, useEffect is a hook that allows you to perform side effects in functional components. Side effects in React components typically include tasks such as data fetching, subscriptions, or manually changing the DOM. The useEffect hook replaces lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
+
+The use is like this:
+useEffect(() =>{
+    fetchData();
+   }, []);
+
+
+  const fetchData = async () =>{
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.49690&lng=80.32460&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(json);
+    setListOfRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    
+  }
+
+
+   when the body component is load as soon as the it render the component as soon as the component is render then the useEffect is called.
+
+
+  we are previous use the mockData now by the fetch we are able to use the live data from the swiggy app.
+
+
+  Q.6-->What is optional changing?
+  Optional chaining is a JavaScript feature introduced in ECMAScript 2020 (ES11) that provides a concise and safe way to access properties of nested objects without causing errors when encountering undefined or null values.
+  symbol--->?
+
+
+  Now at this time i dont want to acces the mockData more i able to delete that.
+
+
+  ******************SHIMMER EFFECT******************
+  Q.10--->What is Shimmer?
+  Shimmer UI is a better way to show loading states in your web or mobile app. It improves the user experience by providing visual feedback.
+
+
+// this is conditional rendering
+if(listOfRestaurant === 0)
+{
+  return <Shimmer/> 
+} 
+ now this is used in the ternery operator
+
+
+
+
+Q.11--->Suppose i create a login button by the normal javascript variable when i clicked on the button it changes to logout but it not change But when i create a button using the react state variable it change suddenly why?
+
+In React, when you use state variables managed by React hooks like useState, changes to those state variables trigger a re-render of the component. React automatically detects changes to state and updates the UI accordingly. This is because React components are designed to be declarative, meaning that the UI is a function of the component's state.
+
+On the other hand, when you use plain JavaScript variables outside of React's state management, changes to those variables don't automatically trigger a re-render of React components. React components only re-render when there's a change in state or props.
+
+
+very very important**********
+
+const [btnNameReact,setbtnNameReact] = useState("Login");
+<button className="login-btn"
+            onClick={()=>{
+              setbtnNameReact("Logout");
+              
+              console.log(btnNameReact);
+            }}>
+              {btnNameReact}
+
+            </button>
+
+
+ --->above is the constant variable how it is get updated?
+ because whenever the setbtnNameReact is called with the update value then it is calling the header once again or we can say that it re-render the header once again at that time the btnNameReact is the new variable.   
+
+
+
+ *****************Now create a search bar**************     
+ 
+const [searchText,setSearchText]=useState("");
+
+ <div className="search">
+              <input type="text" className="search-box" value={searchText}/>
+              <button onClick=
+              {()=>{
+                console.log(searchText)
+              }}>Search</button>
+ </div>
+
+
+ above code is when i write something in the input box then it will nothing input in the box i am typing and no text is shown there.
+ 
+
+
+<div className="search">
+
+              <input type="text" className="search-box" value={searchText} onChange={(e)=>
+              {
+                setsearchText(e.target.value);
+              }}/>
+
+
+              <button className="search-button" onClick=
+              {()=>{
+                console.log(searchText)
+              }}>Search</button>
+
+</div> 
+
+
+
+
+now the code is change it reflect the changes.becoz in above code when i am writing the character then it render the character again and again.
+***React re-render the body component but it update the only input value.
+
+
+Q.Why React is faster?
+the react fiber and the new re-consilliation process which find out the difference between the older virtual dom and the new virtual and update the dom only the required portion that is why the react is fast.
+
+
+
+***************************************************************************************
+<button className="search-button" onClick=
+              {()=>{
+                
+
+                const filteredRes=listOfRestaurant.filter((res)=>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                )
+
+                setListOfRestaurant(filteredRes);
+                console.log(searchText);
+
+              }}>Search</button>
+
+            </div>
+
+
+here is the bug in the code if i search the coffee in the search box then the the cards will filter which includes the coffee if then i search again the pizza in search bar which filter from the previous  filtered card then if it contain then it will print otherwise it will not print here is bug is that if i search pizza then it should filterd from the whole card not from the filtered card.     
+
+so for that we do the thing---->
+
+ const [filteredRestaurant,setfilteredRestaurant]=useState([]);
+
+ setfilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+   
+
+<button className="search-button" onClick=
+              {()=>{
+                
+
+                const filteredRes=listOfRestaurant.filter((res)=>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                )
+
+                setfilteredRestaurant(filteredRes);
+
+                console.log(searchText);
+
+              }}>Search</button>
+
+            </div>
+
+
+{/*Rendering the filtered restaurant*/}
+
+          <div className="rest-container">  
+            {
+              filteredRestaurant.map((restaurant) => {
+                console.log(restaurant);  
+              return <RestaurantCard key={restaurant.info.id} resData={restaurant}/>
+              })  
+            }
+
+this is how bug solve.                        
+******************************************************************************************
+
+
+
+

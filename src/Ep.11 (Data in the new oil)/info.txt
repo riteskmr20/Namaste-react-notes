@@ -1,0 +1,160 @@
+Higher order component:-->it is a function which takes a components as a input and it will return new  component with additional props and functionalties.
+
+
+suppose if some of the cards are on the swiggy website are promoted how to build this feature.
+
+like this --->by higher order component
+
+
+ export const withPromotedlabel = (RestaurantCard) =>{
+    return (props)=>{
+        return (
+            <div>
+            <label>Promoted</label>
+            <RestaurantCard {...props}/>
+            </div>
+        );
+    };
+};
+this component is created in the RestaurantCard.
+{...props}==> it passes all the props that i receive.
+
+**All the react application have two layers :
+1.UI layers
+2.Data layers
+
+and the UI layer is powered by the data layer.
+The UI layer is mostly consisting of the jsx..
+and the data layer is consisting of the state ,props ,local variable,javascript code that we are write the curly braces.
+
+Now find all the item category of the menu of the restaurant.
+
+*****for that @type @ is not the valid javascript.so we can wrap it inside the ["@type"]
+apply the filter concept to access all the data of accordian.
+
+const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c)=>c.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
+  console.log(categories);
+
+
+In accordian we have to build a feature such thatbif i open the one accordian then all the other accordian should be closed?
+
+
+install react developer tool 
+
+
+
+
+
+**Important concept Lifting the state up.(gfg)
+--->i want to build such that if i open the one accordian so other should collapse.
+its a very tough to build.becoz its RestaurantCategory has managing their own state.
+right now the RestaurantCategory has power to show and expand the item list like this-->
+
+ 
+
+import ItemList from "./ItemsList";
+import { useState } from "react";
+const RestaurantCategory=({data})=>{
+    const [showItems,setshowItems]=useState(false);
+    const handleClick=()=>{
+       setshowItems(!showItems); 
+    };
+    return (
+        <div>
+            {/*Accordian Header */}
+           <div className="accordian  bg-green-50 shadow-lg p-4 my-4   ">
+              <div className="flex justify-between cursor-pointer" onClick={handleClick}> 
+                <span className="font-bold text-lg">{data?.title} ({data.itemCards.length})
+                </span>
+               <p onClick={handleClick}>⋀</p>
+               </div> 
+               {/*Accordian Body*/}
+              {showItems &&<ItemList key={data?.card?.info?.category} items={data.itemCards}/>}
+            </div>
+        </div>
+    );
+};
+export default RestaurantCategory;
+
+
+
+
+but i don't want to give the RestaurantCategory this power i want to give this power to the ResMenu(parent).what ever we are passing to the props from the ResMenu to RestaurantCategory should be followed.
+we pass as 
+****showItems={false}****
+that i want that ResMenu controll the all RestaurantCategory such as expand and collapse.ResMenu is parent and we want to controll its children(RestaurantCategory). 
+
+so RestaurantCategory does not have their showItems state --->
+
+
+
+import ItemList from "./ItemsList";
+import { useState } from "react";
+const RestaurantCategory=({data,showItems})=>{
+    return (
+        <div>
+            {/*Accordian Header */}
+           <div className="accordian  bg-green-50 shadow-lg p-4 my-4   ">
+              <div className="flex justify-between cursor-pointer" onClick={handleClick}> 
+                <span className="font-bold text-lg">{data?.title} ({data.itemCards.length})
+                </span>
+               <p onClick={handleClick}>⋀</p>
+               </div> 
+                
+               {/*Accordian Body*/}
+              {showItems &&<ItemList key={data?.card?.info?.category} items={data.itemCards}/>}
+            </div>
+        </div>
+    );
+};
+export default RestaurantCategory;
+
+
+
+
+
+controlled and uncontrolled component:-->if the component controlling itself then it is uncontrolled component.otherwise it is controlling by other component(like by parent) then it is controlled component.
+
+Q.1.can i modify of the state variable of parent to the children?.
+it not happen directly but indirectly we can modify it.
+
+when the application become huge the passsing data from one component to other become so much difficult(like props).react have one way data flow like parent->children->their children.
+
+Q.if data is present somewhere we want to access somewhere how would we do that?
+for that react gives us the super power knows are react context(useContext) while using react context we avoid props drilling(passing data from parent to children as a props).its also knows as global context what we want we will receive it.
+
+
+lets create a context in utils--> 
+
+can we useContext every where instead of props ?
+no only where we need of the data multiple times then we use the useContext.
+
+In the class based component we are using the useContext() but in the class based component we have not hooks we use it as the component
+
+<componentname.consumer>
+{(data)=>console.log(data)}
+</componentname.consumer>
+
+which has a callback function which takes the data which is the context data.
+
+
+just like -->
+<UserContext.consumer>
+</UserContext.consumer>
+
+we have the 
+
+<UserContext.Provider value={{}}>
+</UserContext.Provider>
+In the app.js where we put the authentication of the user to the its provided the data where we are using it.
+
+we can able to put the <UserContext.Provider></UserContext.Provider> as in the nested form.
+
+React’s useContext and Redux are tools used to manage the state within React applications, yet they differ in their purposes and core distinctions.
+
+The difference is the usage context and scale of management scope. useContext is suitable for managing smaller-scale states, whereas Redux is apt for scenarios necessitating complex state management shared across the entire application.
+
+react and react are different library.
+
+Now we will learn the redux as it is not mandatory.becoz we can able to use useContext.
+

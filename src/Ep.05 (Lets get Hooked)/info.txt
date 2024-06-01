@@ -1,0 +1,278 @@
+STEP:1--->if we are writing the component in the one file or writing all the code in one  file then it would be so messy .
+
+STEP:2--->it will be good if i make a folder and i put the all the component in that folder.
+
+STEP:3--->i make a folder named components and in that folder i will put all the component in that folder.
+
+STEP:4--->it completelly on you whatever you want to put the  name  of the components but it is suggested that the name should be like the component what is it doing.
+
+STEP:5--->Now you have to export first the components then import it in the main component.
+for that export default componentname; there are another way also for export we will see later.
+
+now import the component in the main.
+
+
+STEP:6--->The hard coded data we never have to put in the component file.
+
+STEP:7---> the url is hard coded data the api is hard coded data.   
+
+
+STEP:8--->A coomon practice is to keep it inside a seperate file.
+
+STEP:9---> for that i created a a new folder named utils
+
+STEP:10--->now i make a file named constants.js in the utils i named as the small letter becoz it is not a component.
+
+STEP:11---> now i move the cdn url of image from the ResturantCard in the constants.js file names in another const CDN_URL like that ---->
+const CDN_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
+STEP:12--->also same for the logo url.
+
+STEP:13--->also make mockData.js file in the utils for the hard coded api.
+
+
+STEP:14--->Now we will have to use or access this utils .
+How?
+
+export all the utils and import it where its need.
+
+
+STEP:15--->Now the another method of export comes like in constants.js file exist CDN_URL and the LOGO_URL.
+type:-->
+1.default export
+2.Named export
+
+if i both by the export default nameofFile in the same constants.js at two times then it will give the error.
+
+
+**In one file only one default export.
+ then what we have to do if we have to export multiple things.then we use named export please keep in mind.
+
+
+ export const CDN_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
+export const LOGO_URL="https://bcassetcdn.com/public/blog/wp-content/uploads/2019/07/18094833/the-red-cafe.png";
+
+Like this.
+
+then how to import?
+import { CDN_URL } from "../utils/constants";
+we use the {} braces for import named export.
+
+Now access this things like src={CDN_URL+cloudinaryImageId} or {LOGO_URL}
+
+
+Q.1--->can we do default export along with the named export in react at a same time?
+Yes, in React (and in JavaScript in general), you can use both default exports and named exports in the same module. This allows you to export multiple values from a single file, either as the default export or as named exports, or both.
+
+
+our app are completelly static here so i make the app dynamic for that:---> 
+
+now i do the work on the seach box later first i make a button on that position
+
+
+
+
+
+
+**********************React Hooks*******************        
+we ave to create a button which shows me a top rated restaurant.
+
+i eliminate the search bar that i have created.
+
+at that position i created a filter div  and in the filter div i create a button Top rated restaurant.
+
+Q.5-->Suppose you have to click and some thing change how do i write that?
+i write the onclick which takes the callback function which do something.
+<button className="filter-btn" onClick={() =>{
+  console.log("ritesh is here!");
+}}>Top-rated Restaurant</button>
+
+
+Very very Important*****
+How are the cards is comming here.
+the cards are comming from the resList.and the resList some have mock data. anything changes in the resList the out webpages are changes
+
+import resList from "../utils/mockData";
+lets remove the resList from the Body component.
+
+
+
+
+
+/*import RestaurantCard from "./RestaurantCard";
+import resList from "../utils/mockData";          //remove it***
+
+const Body = () => {
+    return (
+      <div className="body">
+        <div className="filter">
+          <button className="filter-btn" onClick={() =>{
+            console.log("ritesh is here!");
+          }}>Top-rated Restaurant</button>
+        </div>
+
+        <div className="rest-container">
+          {
+            resList.map((restaurant) => (
+            <RestaurantCard key={restaurant.info.id} resData={restaurant}/>
+            ))
+          }
+          
+        
+        </div>
+      </div>
+    );
+  };
+
+  export default Body;*/
+
+
+  i'm not use the resList from the mock data . lets create our own listOfRestaurant.
+  in the body component.intially it is empty-->let listOfRestaurant = [] and  i'm trying to loop over listOfRestaurant.
+
+  now i select the api for the one restaurant  and paste in the listOfRestaurant.
+
+  now i have to develop a feature that if i click on the top rated restaurant then whose rating then above 4 will show---->
+  which logic used Filter logic.
+  like this-->
+
+  onClick=
+  {() =>
+    {
+      listOfRestaurant=listOfRestaurant.filter
+      (
+        (res)=>res.info.avgRating > 4.3
+
+      );
+      console.log(listOfRestaurant);
+    }
+  }
+
+
+  but the UI is not updated when i use this logic.how do i update my UI. to do this react gives us the super power.
+
+  here listOfRestaurant is normal javascript variable if you give the super power of react
+
+  now i create a super power react variable also called as a state variable  but how to create a super powerful variable--->
+  for that we use the react hooks which is know as the use state.
+
+  what is basically the react element?
+  it is just the normal just a plain javascript object.
+
+  so similarly the react hook is the normal JavaScript function.it is a prebuild. that the function have some logic written behind that.
+
+  two very Important react hooks:-->
+  1.useState()
+  2.useEffect()
+
+
+  to use hooks first import it from react like the named import because somebody have named exported from the node module. 
+
+  useState is use to create a state variable.because it maintains the state of the component.
+
+  local state variable scope is inside the Component.
+
+  when we are calling the useState() it will give you state variable .we receive the variable like this-->const [listOfRestaurant]=useState(); inside an array.
+
+  now we are passing the whole api from the in the useState([{}]) like this.
+
+  if i have to modify the list of restaurant i can not modify like this 
+  listOfRestaurant=[].
+
+  i can  modify by the function which comes as the second parameter  in the listOfRestaurant array.
+  const [listOfRestaurant,setListOfRestaurant]=useState([])  
+
+  suppose if i click on the button and i update the listOfRestaurant.how do i update my state variable. 
+  onClick=
+ {() => 
+     {
+         const filteredList=listOfRestaurant.filter
+              (
+                (res)=>res.info.avgRating > 4
+
+              );
+              setListOfRestaurant(filteredList);
+     }
+ }
+
+
+
+*****whenever the state variable update react re-render the components. that why it is called the super powerful state variable.
+
+i am just using the 2 api from the resList.Now i use all the api from the mockData.
+ for that i have to import resList from "../utils/mockData";
+
+ now i used that data in the useState like this
+
+
+ Q.7--->how to build large application what makes it super fast?
+ react will make this dom manipulation super fast and efficient.
+
+
+
+
+**very very important--->
+React uses the reconciliation algorithm also known as react fiber.
+DOM is like a tree.
+suppose in the res-container we have 7 restaurant card and my UI changes to filtering these cards to only 3 cards. what react do?
+
+whenever this UI of 7 cards react create a virtual dom of it.
+what is virtual DOM?
+It is representation of actual DOM.
+
+then what is actual DOM?
+div inside div also some image.
+
+virtual dom basically those react element.if i print the body component then it will print Object.these object is react virtual dom.
+
+
+Q.8--->What is the diff algorithm?
+it finds out the difference between two updated virtual dom and the previous virtual dom.
+whenever something change in the UI is known as the reconciliation
+ 
+
+
+
+
+
+Q.6--->What is the actual mean by the hooks?
+Hooks are features that allow you to “hook into” the features of React state and lifecycle from function components.
+also
+Hooks allow function components to have access to state and other React features.
+
+
+
+
+Hooks to keep track of the application state.
+state generally refer to the application data or properties that need to be tracked.
+
+
+
+There are 3 rules for hooks:
+
+1.Hooks can only be called inside React function components.
+2.Hooks can only be called at the top level of a component.
+3.Hooks cannot be conditional
+
+
+Q.10--->What is the reconciliation?
+React reconciliation is the process by which React updates the DOM to reflect changes in the state of a component or its children. When the state of a component changes, React needs to determine what changes need to be made to the DOM to reflect the new state efficiently.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

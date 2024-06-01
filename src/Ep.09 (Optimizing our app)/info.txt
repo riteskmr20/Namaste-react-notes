@@ -1,0 +1,33 @@
+   for the single resposibility principle which mwans that the every component have a single resposibility so for that we are creating  custom hooks .
+
+   we are creating a custom hook which are trying to fetch the data of menu and put into it---> useRestaurantMenu();
+   by creating this the code is look cleaner and in the util we are creating the custom hooks because it is a helper functions and the best way is to put in the utils.resMenu does not worry about how the implementation of how we are fwtching the data.it only resposibility is that is get the data and display it by resId.
+
+
+ the job of useRestaurantMenu() hook is that it takes a resId and fetch the data and it return the resInfo.
+
+ ---->>i have to create offline online such that when ever i visited on the website if the network connection lost then it shows the no internet connectivity.for that i created the useOnlineStatus()  
+
+
+
+
+ ==>>we are not loading everything whenever it is required then that code will be load.is called lazy loading(on demand loading).
+
+ when we are building the large app parcel bundle the code in a single javascript file if we are extending the application then that file is too large and the app will become slow .
+
+ for that i will use--->
+ --chunking 
+ --code splitting
+ --dynamic bundling
+ --lazy loading(on demand loading).
+ --dynamic import
+
+ suppose i have to create a Grocery section in the swiggy app then we build it by the help of lazy which comes from react
+
+ import React,{lazy,Suspense} from "react";
+ const Grocery =lazy(()=>import("./components/Grocery")); in app.js
+ import is a function .
+ 
+ lazy loading is the whenever is the need of the code then it sends the code in the other file.
+ wrap the component is the Suspense in the app.js
+

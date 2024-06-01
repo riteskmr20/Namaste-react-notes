@@ -1,0 +1,138 @@
+we will Learn about Redux and Redux toolkit.
+
+we uses the Redux toolkit 
+
+**Redux store is nothing but a big javascript object and it is kept at global central place .it is a central place and any component can access inside our application.it can write data,read data,and it is like a big object.and we kept most of the data in the redux store.we created a slices for the data seperate slice for loggedIn ,seperate slice for cart.
+
+Q.How when we click on add the something in the cart how the things is happening in the redux?
+when we click to add the button it takes dispatch(action) after dispatch action it calls the reducer function which update the slice of the redux store(cart).and the cart have the data of the content.Now i want to get the data from the cart.how?
+for that we use selector(phenomena is known as subscribing to the store)  to read the data from the store. 
+
+
+##Redux toolkit
+ -Install @reduxjs/toolkit and react-redux
+ -Build store
+ -Connect our store to our app
+ -Slice (cartSlice)
+ -dispatch(action)
+ -reducers
+ -selector  
+
+
+ Now we will create a store in utils appStore for that we use configureStore()
+which comes from the @reduxjs/toolkit and also we have to provide the store to the react which is done by the { Provider } from "react-redux" we uses it in the app.js
+
+ const AppLayout = () => {
+  return (
+    <Provider store={appStore}>
+    <div className="app">
+      <Header />
+      <Outlet/>
+    </div>
+    </Provider>
+  );
+};
+
+
+Now we have to create a Cart slice for the store for that we make a sepearate cart for the store name cartSlice.js in utils.import like this(import { createSlice } from "@reduxjs/toolkit")
+
+
+Reducers are functions that take the current state and an action as arguments, and return a new state result. In other words, (state, action) =>
+
+for that we have to export reducers(export default cartSlice.reducer;) and also we have to export the actions also(export const {addItems,removeItems}=cartSlice.actions;).
+
+now when we have build this slice i able to add slice to my store(appStore) which is empty right now.Now we have to import cartReducer in the app store.
+
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
+
+
+const appStore = configureStore({
+    reducer:{
+        cart:cartReducer,
+    },
+});
+
+export default appStore;
+
+
+
+
+
+
+how do i read the items we use a selector its just a hook in react.selector help us to what portion of a store i need.
+
+const cart=useSelector((store)=> store.cart.items);
+Now the cart get the data of the item.
+
+On click on the add button it dispatch and it shows in the cart.
+for that useDispatch() is used which is comes from the react redux library.
+
+
+const dispatch=useDispatch();
+
+    const dispatchItems=()=>{
+      dispatch(addItem("pizza"));
+    };
+
+
+
+Q.what is the difference between these:-
+
+1.onClick={dispatchItems}
+2.onClick={()=>dispatchItems(item)}
+3.onClick={dispatchItems(item)}
+
+
+
+1.onClick={dispatchItems}: In this case, dispatchItems is a function reference. When the element is clicked, the dispatchItems function will be called without any arguments. This is useful when the dispatchItems function doesn't need any specific data from the click event.
+
+2.onClick={() => dispatchItems(item)}: Here, an inline arrow function is used. When the element is clicked, this function will be executed. It calls dispatchItems and passes item as an argument. This is useful when you need to pass additional data (in this case, item) to the dispatchItems function.
+
+3.If dispatchItems(item) is indeed a valid function call that you want to happen when the element is clicked, then the syntax onClick={dispatchItems(item)} would be incorrect in a React application.
+
+The reason it's incorrect is that in React, you should provide a function reference to the onClick attribute, not directly call a function. When you write onClick={dispatchItems(item)}, you're calling the function dispatchItems(item) immediately, not waiting for the click event. As a result, the function will be called as soon as the component renders, which is not the intended behavior for handling click events.
+
+
+
+***********Imporatant interview question of selector
+
+ 1.const cartItems = useSelector((store) => store.cart.items);
+
+ 2./**const store=useSelector((store)=>store);
+
+ 3.const cartItems=store.cart.items;**/
+
+
+ the above code is doing the same thing but the we are not need to subscibe the whole store always subsribe the small portion of the store as the 1 line of the code is doing.
+ name is selector because we are selecting the specific portion of the store
+
+
+**in the older version vanilla(older) redux =>DON'T MUTATE THE state
+  const newState=[...state]
+  newState.items.push(action.payload);
+  return newState;
+
+
+  //Redux toolkit
+  we can able to MUTATE the state in the redux toolkit
+
+
+  redux behind the scene uses the immer library of the doing the whole thing
+
+  if we want to console.log in the redux the we have to use the current which comes from the @reduxjs/toolkit
+  console.log(current(state))
+
+  redux toolkit-either mutate the existing state or return the new state 
+
+  like-->
+  originalState=["pizza"]
+
+  either :state.items.length=0;//originalState=[]
+  or:return{items:[]};// this new state replaced inside originalState={items:[]}
+
+
+
+
+
+

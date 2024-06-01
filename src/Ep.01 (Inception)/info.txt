@@ -1,0 +1,130 @@
+Q.1--->What is CDN?
+CDN stands for Content Delivery Network. It is a network of geographically distributed servers that work together to deliver internet content, such as web pages, images, videos, scripts, and other multimedia assets, to users based on their geographic location.
+
+The primary purpose of a CDN is to improve the performance, reliability, and scalability of delivering content over the Internet. 
+
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+
+when we importing this link then the our project have react into it.
+
+
+
+What is CORS?
+CORS is a mechanism which uses the additional http headers to tell the browser weather a specific web app can share the resource with another web app.if they have same origin then they can share resource easily if they have different origin for that they need to follow the CORS mechanism.
+
+
+
+
+STEP:1-->Put the link from the cdn react into the body
+
+STEP:2-->Now create a heading which have some value and the object also(here  you will give attribute to the tags like {id:"heading"}) and value are like hello world by the method(React.createElement)
+
+STEP:3-->Now create a root of a react which take the value from the id of the html content
+by(ReactDOM.createRoot(document.getElementById())).
+
+STEP:4-->Now render the heading content into the root.
+
+
+
+STEP:5-->How to create a nested structure in the html like in React
+<div id="parent">
+   <div id="child">
+
+   </div>
+</div>
+
+for that we have to create by the React.createElement("div",
+{id:"parent"},
+React.createElement("div",
+{id:"child"},
+React.createElement("h1",{},"hi there")));
+
+
+parent is not the html element it is an object of react element
+ReactElement(object) => HTML(understand by the browser)
+
+suppose want to create a sibling of the h1 tag like we have to create h2 then or we can say that we have to create more than one children of an "div" which have some id then we convert this into array
+
+
+
+
+// this is for the parent one child and the children have two child
+/*const parent = React.createElement("div",{ id: "parent" },
+    React.createElement("div",{ id: "child" },[
+      React.createElement("h1",{},"hi i'm h1 tag"),
+      React.createElement("h2",{},"hi i'm h2 tag"),])
+       
+        
+     );
+     const root = ReactDOM.createRoot(document.getElementById("root"));
+     root.render(parent); 
+     console.log(parent);*/
+
+
+
+
+
+STEP:6-->
+<div id="parent">
+   <div id="child">
+
+   </div>
+  <div id="child2">
+
+  </div> 
+</div>
+this explain that the parent have two child then the create array of  the children by:
+
+// this is for the parent have two child and the children have two child
+     const parent = React.createElement("div",{ id: "parent" },[
+        React.createElement("div",{ id: "child" },[
+                React.createElement("h1",{},"hi i'm h1 tag"),
+                React.createElement("h2",{},"hi i'm h2 tag"),]),
+            
+                
+            React.createElement( "div",{ id: "child2" },[
+              React.createElement("h1",{},"hi i'm h1 tag"),
+              React.createElement("h2",{},"hi i'm h2 tag"),])
+           
+            ]);
+this code is very hard to read and understand that why the the JSX(Javscript XML) comes exist jsx makes the easy when we are creating the tags And easy to understand the code then we are no longer use the React.createElement.
+
+The .render() method is responsible for defining what should be rendered or displayed on the screen based on the current state and props of the component. and render method is replaced the content whatever it is present.
+
+
+
+Q.2--->What is npm?
+Npm manages packages but it does not stand for the node package manager.it is the standard repository of all the packages.
+NPM stands for Node Package Manager. It is the default package manager for JavaScript runtime environment Node.js, and it is also the largest software registry in the world. npm is used to install, share, and distribute code written in JavaScript and to manage dependencies in projects.
+
+-npm init
+test command:jest
+
+after doing all the stuf a new file is created name package.json. 
+
+
+
+STEP:7--> Package.json is the Configuration for the npm
+
+Configuration means?
+Configuration refers to the process of setting up, customizing, and adjusting the parameters, options, and settings of software, systems, or applications to suit specific requirements, preferences, or environments.
+
+
+
+
+what is dependencies?
+Dependencies refer to external code libraries, packages, or modules that a software project relies on to function properly.In the context of software development, dependencies are typically other pieces of software or code that a project needs in order to run, compile, or execute specific functionality.
+
+
+Why do we need package.json file?
+npm manages the packages and the library like what is the version of the packages that npm will take care of it in the package.json.
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+==>various way to style the components are 
+ --> css,scss,sass,styled components,
+ -->frameworks are:-->bootstrap, Material UI,chakra UI.
+
+ here we are using the tailwind css.it works with all the frameworks.here we are using it with the parcel-->
+ postcss-->it is a tool for transforming css with javascript.
+
+ after installing in the terminal it create a new file named tailwind.config.
+and follow the step that are written on the tailwind css website.
+
+
+
